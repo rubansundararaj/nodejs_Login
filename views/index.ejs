@@ -1,0 +1,30 @@
+
+<h1>
+N-Dimensions aka NDGames
+</h1>
+<h3>
+Founder:  <%= founder %>
+
+</h3>
+<h3>
+Mentions:  <%= mentions %>
+
+</h3>
+<h3>
+Owner:  <%= owner %>
+
+</h3>
+<ul>
+<% for(var v of platforms) {%>
+<li> <%= v.name %></li>
+<% } %>
+</ul>
+
+<% if(founder ==='Ruban'){ %>
+
+<h3> Yes <%= founder %> is owner </h3>
+<% } else {%>
+
+
+<h3> Yes <%= founder %> is not owner </h3>
+<%}%>
