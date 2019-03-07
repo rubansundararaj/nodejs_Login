@@ -26,12 +26,22 @@ res.render('signup');
 });
 
 
-app.get('/signup',(req,res) =>{
+app.get('/login',(req,res) =>{
 
   res.render('login');
 });
 
-app.post('/signup',(req,res) =>{
+app.post('/signup',(req,ress) =>{
+
+  Signup.findOne({email:req.body.email},(err,res,)=>
+  {
+    if(err) return ress.send("USer already exist form error", err);
+    console.log('***********');
+    console.log(res);
+    console.log('**************');
+    
+
+    if(res) return ress.send("USer already exist from res");
 
   bcrypt.hash(req.body.psw, saltRounds, function(err, hash) {
     if(err)
@@ -64,27 +74,32 @@ app.post('/signup',(req,res) =>{
      
   });
 
-res.render('login');
+
+});
+ress.render('login');
 });
 
-
-app.post('/home',(req,res) =>{
+app.post('/home',(req,ress) =>{
   Signup.findOne({email:req.body.email},'username email psw',(err,res,)=>
   {
-if(err) console.log("Error getting user");
-
-console.log(res.username);
+if(err) return console.log("Error getting data mate");
+if(!res){ 
+  
+  var x =1;
+  return ress.render('signup',{message:"You are not registerd user signup here"});
+}
+  console.log(res.username);
 console.log(res.email);
 console.log(res.psw);
- 
+ var user = res.username;
   
  bcrypt.compare(req.body.psw, res.psw).then(function(res) {
    if(res){
      console.log("You are a registered user");
-    
+    return ress.send("Welcome to ndgames player");
    }
 });
-},res.end("Welcome to Ndgames players"));
+},console.log("Done processing "));
 });
 app.get('/home',(req,res)=>{
 
